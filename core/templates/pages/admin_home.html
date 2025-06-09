@@ -1,0 +1,42 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Admin Home{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        
+        <!-- left -->
+        <div class="col-md-6">
+            {%include 'components/clock.html'%}
+            <div class="container my-4">
+                <div class="row">
+                    {% include "components/card.html" with text1="Certificates" amount="2" text2="pending"%}
+                    {% include "components/card.html" with text1="Payments received" amount="2" text2="pending"%}
+                    {% include "components/card.html" with text1="Summary" amount="2" text2="pending"%}
+                </div>
+            </div>
+            {%include 'components/podium.html'%}
+        </div>
+
+        <!-- right -->
+        <div class="col-md-6">
+            {% include "components/add_session_btn.html" %}
+            <div class="container my-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        {% include "components/students_today.html" with student_name="student name" last_material="last material name" %}
+                    </div>
+                    <div class="col-md-6">
+                        {% include "components/payment_requests.html" with student_name="student name" issue_date="DD/MM/YYYY" meeting_amount="xx" %}
+                    </div>
+                </div>
+            </div>       
+        </div>
+               
+    </div>
+</div>
+
+{% endblock %}

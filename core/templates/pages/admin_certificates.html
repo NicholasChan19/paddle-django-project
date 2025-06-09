@@ -1,0 +1,40 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Admin Certificates{% endblock %}
+
+{% block content %}
+
+<div class="text fs-1 fw-bold mb-2">Certificates</div>
+
+<div class="d-flex gap-3 mb-2">
+
+    <!-- start -->
+    <input type="month"
+        name="start_date"
+        class="rounded-xl border px-4 py-2 text-gray-700 placeholder-gray-400"
+        placeholder="Start MM/YYYY">
+
+    <!-- end -->
+    <input type="month"
+        name="end_date"
+        class="rounded-xl border px-4 py-2 text-gray-700 placeholder-gray-400"
+        placeholder="End MM/YYYY">
+    
+
+    <input 
+    class="form-control mb-2 w-25 ms-auto" 
+    type="search" 
+    placeholder="Search student" 
+    aria-label="Search student" >
+</div>
+
+<div class="d-flex gap-3 mb-2">
+    <button class="rounded-full btn mb-4 mb-2" style="background-color: #918072; color: white;">apply filter</button>
+    <button class="rounded-full btn mb-4 mb-2 ms-auto" style="background-color: #918072; color: white;">Pending Certificates (x)</button>
+    <button class="rounded-full btn mb-4 mb-2" style="background-color: #918072; color: white;">Unconfirmed Certificates (x)</button>
+</div>
+
+{%include 'components/certificate_table.html'%}
+
+
+{% endblock %}

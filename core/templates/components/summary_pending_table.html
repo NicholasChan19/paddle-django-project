@@ -1,0 +1,39 @@
+{%load static%}
+<style>
+    .profile-img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    }
+    .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+</style>
+
+<table class="table table-borderless align-middle overflow-hidden rounded">
+   
+    <thead>
+        <tr class="border-bottom">
+            <th class="fw-bold">Date</th>
+            <th class="fw-bold">Time</th>
+            <th class="fw-bold">Icon</th>
+            <th class="fw-bold">Name</th>
+            <th class="fw-bold">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr class="border-bottom">
+            <td>MMMM/DD/YYYY</td>
+            <td>Hari</td>
+            <td><div class="profile-img me-3"><img src="{% static 'images/contohstudent.jpg' %}"></div></td>
+            <td>Nama murid</td>
+            <td><button class="rounded-full btn my-2" style="background-color: #918072; color: white;">remind</button></td>
+        </tr>
+    </tbody>
+
+</table>

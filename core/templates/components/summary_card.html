@@ -1,0 +1,73 @@
+{%load static%}
+<style>
+    body {
+    background-color: #eeeee5;
+    }
+    .lesson-card {
+    max-width: 900px;
+    margin: 20px 0px 20px 20 px;
+    border-radius: 15px;
+    }
+    .profile-img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    }
+    .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    }
+    .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .metadata {
+    font-size: 0.9rem;
+    color: #999;
+    }
+</style>
+
+<div class="card p-4 shadow-sm lesson-card">
+<div class="d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+    <div class="profile-img me-3"></div>
+    <div>
+        <div><strong>{{ summary.student.user.get_full_name }}</strong></div>
+        <div>{{ summary.session.date|date:"F d Y" }}</div>
+        <div>{{ summary.session.time|time:"H:i" }}</div>
+    </div>
+    </div>
+    <div class="text-end metadata">
+    <div>Made by: {{ summary.teacher.user.get_full_name }}</div>
+    <div>{{ summary.dateCreated|date:"F d Y" }}</div>
+    <div>{{ summary.dateCreated|time:"H:i" }}</div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-5">
+    <div class="image-placeholder">
+        <img src="{{ summary.imageURL }}" alt="Lesson Image">
+    </div>
+    </div>
+    <div class="col-md-7">
+    <p><strong>Topic:</strong> {{ summary.course.name }}</p>
+    <p><strong>Lesson:</strong> {{ summary.material.title }}</p>
+    <p>{{ summary.summary }}</p>
+    <p><strong>Next:</strong> {{ summary.notes }}</p>
+    </div>
+</div>
+</div>

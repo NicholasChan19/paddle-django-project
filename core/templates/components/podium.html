@@ -1,0 +1,31 @@
+{%load static%}
+<div class="container py-5 rounded-4 shadow bg-white mt-3">
+    <div class="d-flex justify-content-center align-items-end gap-4 podium">
+
+        <div class="text-center">
+            <div class="bg-light rounded-circle overflow-hidden mx-auto" style="width: 100px; height: 100px;">
+                <img src="{% static 'images/profile picture.png' %}" class="w-100 h-100 object-fit-cover" alt="Teacher 2">
+            </div>
+            <div class="fw-semibold mt-2">🥈 Teacher 2</div>
+            <div class="text-muted small">12 sessions</div>
+        </div>
+
+        <div class="text-center" style="transform: translateY(-20px);">
+            <div class="bg-light rounded-circle overflow-hidden mx-auto border border-warning border-3" style="width: 120px; height: 120px;">
+                <img src="{% static 'images/profile picture.png' %}" class="w-100 h-100 object-fit-cover" alt="Teacher 1">
+            </div>
+            <div class="fw-semibold mt-2">🥇 Teacher 1</div>
+            <div class="text-muted small">20 sessions</div>
+        </div>
+
+        <div class="text-center">
+            <div class="bg-light rounded-circle overflow-hidden mx-auto" style="width: 100px; height: 100px;">
+                <img src="{% static 'images/profile picture.png' %}" class="w-100 h-100 object-fit-cover" alt="Teacher 3">
+            </div>
+            <div class="fw-semibold mt-2">🥉 Teacher 3</div>
+            <div class="text-muted small">9 sessions</div>
+        </div>
+        
+    </div>
+    <div id="Leaderboard-countdown" class="sm mt-4 mx-3 text-start text-muted">Leaderboard resets in: </div>
+</div>

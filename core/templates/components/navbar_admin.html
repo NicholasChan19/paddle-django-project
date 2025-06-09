@@ -1,0 +1,62 @@
+{% load static %}
+<div class="sidebar border-end vh-10 p-3">
+  <ul class="nav flex-column">
+    
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_home' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/home_btn.png' %}" alt="Home">
+        <span class="mt-2 text-white">Home</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_sessions' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/sessions_btn.png' %}" alt="Sessions">
+        <span class="mt-2 text-white">Sessions</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_summaries' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/summaries_btn.png' %}" alt="Summaries">
+        <span class="mt-2 text-white">Summaries</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_students' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/students_btn.png' %}" alt="Students">
+        <span class="mt-2 text-white">Students</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_teachers' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/teachers_btn.png' %}" alt="Students">
+        <span class="mt-2 text-white">Teachers</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_courses' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/courses_btn.png' %}" alt="Courses">
+        <span class="mt-2 text-white">Courses</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_payments' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/payments_btn.png' %}" alt="Students">
+        <span class="mt-2 text-white">Payments</span>
+      </a>
+    </li>
+
+    <li class="nav-item mt-2 mb-2">
+      <a href="{% url 'admin_certificates' %}" class="nav-link d-flex flex-column align-items-center rounded hover-dark">
+        <img src="{% static 'images/certificates_btn.png' %}" alt="Certificates">
+        <span class="mt-2 text-white">Certificates</span>
+      </a>
+    </li>
+
+  </ul>
+</div>

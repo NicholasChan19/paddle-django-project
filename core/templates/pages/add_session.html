@@ -1,0 +1,93 @@
+{% extends 'base/admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+<div class="container">
+	<a href="{% url 'admin_sessions' %}" class="btn btn-secondary">Back</a>
+	<div class="text fs-1 fw-bold my-2">Add New Session</div>
+
+	<form method="post">
+		{% csrf_token %}
+		<div class="col-md-6">
+			<label for="{{ form.date.id_for_label }}" class="form-label fw-bold mb-2">Date:</label>
+			{{ form.date }}
+
+			<label for="{{ form.time.id_for_label }}" class="form-label fw-bold mb-2">Time:</label>
+			{{ form.time }}
+		</div>
+
+		<div class="d-flex justify-content-between mt-4">
+			<button type="submit" class="btn btn-primary">Create Session</button>
+		</div>
+
+
+        <h4 class="mt-4">Add Students</h4>
+
+        <input type="text" id="student-search" class="form-control mb-3" placeholder="Search student...">
+        <div id="student-list">
+            {% for student in students %}
+            <div class="d-flex justify-content-between align-items-center border-bottom py-2 student-item" data-name="{{ student.user.first_name }} {{ student.user.last_name }}" data-id="{{ student.user.id }}">
+                <div class="d-flex align-items-center">
+                    <img src="{{ student.studentImage.url }}" class="rounded-circle me-2" width="40" height="40">
+                    <span>{{ student.user.name}}</span>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-success toggle-btn" onclick="toggleStudent(this)">Add</button>
+            </div>
+            {% endfor %}
+        </div>
+
+        <input type="hidden" name="selected_students" id="selected-students">
+        <input type="hidden" name="add_scheduled" id="add-scheduled" value="0">
+
+        <div class="d-flex justify-content-between mt-3">
+            <button type="button" class="btn btn-secondary" onclick="addScheduled()">Add Scheduled Students</button>
+            <button type="submit" class="btn btn-success">Save Session</button>
+        </div>
+
+        <script>
+        let selected = new Set();
+
+        function toggleStudent(btn) {
+            const item = btn.closest('.student-item');
+            const id = item.dataset.id;
+
+            if (selected.has(id)) {
+                selected.delete(id);
+                btn.textContent = 'Add';
+                btn.classList.remove('btn-danger');
+                btn.classList.add('btn-outline-success');
+            } else {
+                selected.add(id);
+                btn.textContent = 'Remove';
+                btn.classList.remove('btn-outline-success');
+                btn.classList.add('btn-danger');
+            }
+
+            document.getElementById('selected-students').value = Array.from(selected).join(',');
+        }
+
+        function addScheduled() {
+            document.getElementById('add-scheduled').value = "1";
+            document.querySelector('form').submit();
+        }
+
+        //buat search student
+        document.getElementById('student-search').addEventListener('input', function () {
+            const query = this.value.trim().toLowerCase();
+            const items = document.querySelectorAll('.student-item');
+
+            items.forEach(item => {
+                const name = item.dataset.name.toLowerCase();
+                if (name.includes(query)) {
+                    item.style.display = 'flex'; // show matching
+                } else {
+                    item.style.display = 'none'; // hide nonmatching
+                }
+            });
+        });
+        </script>
+	</form>
+</div>
+{% endblock %}

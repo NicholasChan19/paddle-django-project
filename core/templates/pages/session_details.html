@@ -1,0 +1,19 @@
+{% extends "base/admin_base.html" %}
+{% block title %}Session Details{% endblock %}
+
+{% block content %}
+<h2>Session on {{ session.date|date:"F d, Y" }}</h2>
+
+<h4>Time: {{ session.time|time:"H:i" }}</h4>
+
+<h5>Students:</h5>
+<ul>
+  {% for student in students %}
+    <li>{{ student.name }}</li>
+  {% empty %}
+    <li>No students in this session.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'admin_sessions' %}" class="btn btn-secondary mt-3">Back to Sessions</a>
+{% endblock %}

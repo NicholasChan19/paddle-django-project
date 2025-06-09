@@ -1,0 +1,117 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Admin Teachers{% endblock %}
+{%load static%}
+
+{% block content %}
+
+<style>
+.profile-img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    }
+
+.profile-img img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div class="text fs-1 fw-bold">Teachers</div>
+    <a href="{% url 'add_teacher' %}">
+        <button class="rounded-full btn" style="background-color: #918072; color: white;">
+            + add new teacher
+        </button>
+    </a>
+</div>
+        
+
+<form method="get" class="d-flex flex-column gap-3" style="max-width: 350px;">
+<div class="d-flex gap-2">
+    <input class="form-control" type="search" name="search" placeholder="Search teacher" value="{{ search_query }}" style="flex: 1;">
+</div>
+
+<div class="d-flex gap-2 mb-4" style="width: 350px;">
+    <button type="submit" class="btn" style="background-color: #918072; color: white;">Apply Filter</button>
+    <a href="{% url 'admin_teachers' %}" class="btn btn-outline-secondary">Reset Filters</a>
+</div>
+
+</form>
+
+
+<!-- table teacher -->
+
+<table class="table table-borderless align-middle overflow-hidden rounded">   
+    <thead>
+        <tr class="border-bottom">
+            <th class="fw-bold align-middle">
+                <div class="d-flex align-items-center">
+                    <a href="?sort=teacher&direction={% if sort == 'teacher' and direction == 'asc' %}desc{% else %}asc{% endif %}" class="text-decoration-none text-dark">
+                        Teacher
+                        <i class="bi bi-arrow-up"
+                        style="font-size: 0.8rem; color: {% if sort == 'teacher' and direction == 'asc' %}black{% else %}gray{% endif %};"></i>
+                        <i class="bi bi-arrow-down"
+                        style="font-size: 0.8rem; color: {% if sort == 'teacher' and direction == 'desc' %}black{% else %}gray{% endif %};"></i>
+                    </a>
+                </div>
+            </th>
+
+            <th class="fw-bold align-middle">Phone</th>
+
+            <th class="fw-bold align-middle">
+                <div class="d-flex align-items-center">
+                    <a href="?sort=points&direction={% if sort == 'points' and direction == 'asc' %}desc{% else %}asc{% endif %}" class="text-decoration-none text-dark">
+                        Points
+                        <i class="bi bi-arrow-up"
+                        style="font-size: 0.8rem; color: {% if sort == 'points' and direction == 'asc' %}black{% else %}gray{% endif %};"></i>
+                        <i class="bi bi-arrow-down"
+                        style="font-size: 0.8rem; color: {% if sort == 'points' and direction == 'desc' %}black{% else %}gray{% endif %};"></i>
+                    </a>
+                </div>
+            </th>
+
+            <th class="fw-bold align-middle">
+                <div class="d-flex align-items-center">
+                    <a href="?sort=join_date&direction={% if sort == 'join_date' and direction == 'asc' %}desc{% else %}asc{% endif %}" class="text-decoration-none text-dark">
+                        Join Date
+                        <i class="bi bi-arrow-up"
+                        style="font-size: 0.8rem; color: {% if sort == 'join_date' and direction == 'asc' %}black{% else %}gray{% endif %};"></i>
+                        <i class="bi bi-arrow-down"
+                        style="font-size: 0.8rem; color: {% if sort == 'join_date' and direction == 'desc' %}black{% else %}gray{% endif %};"></i>
+                    </a>
+                </div>
+            </th>
+
+            <th class="fw-bold align-middle">Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for teacher in teachers %}
+        <tr class="border-bottom">
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="profile-img me-3">
+                        <img src="{{ teacher.teacherImage.url }}" alt="Profile">
+                    </div>
+                    {{ teacher.user.name }}
+                </div>
+            </td>
+            <td>{{ teacher.user.phone }}</td>
+            <td>{{ teacher.point }}</td>
+            <td>{{ teacher.user.created_at|date:"M d, Y" }}</td>
+            <td><a href="{% url 'teacher_details' teacher.user.id %}">view details</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5">No teachers found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

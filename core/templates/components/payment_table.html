@@ -1,0 +1,129 @@
+{%load static%}
+<style>
+.profile-img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    }
+
+.profile-img img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.status-overdue {
+    color: #a94442;
+    background-color: #f2dede;
+    padding: 4px 8px;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+.status-confirm {
+    color: #1d3f72;
+    background-color: #d0e3ff;
+    padding: 4px 8px;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+.status-pending {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    padding: 4px 8px;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+.status-paid {
+    color: #3c763d;
+    background-color: #dff0d8;
+    padding: 4px 8px;
+    border-radius: 0.25rem;
+    font-weight: 500;
+}
+
+
+</style>
+
+<table class="table table-borderless align-middle overflow-hidden rounded table-hover">
+    
+    <thead>
+        <tr class="border-bottom">
+            <th class="fw-bold align-middle">
+            <div class="d-flex align-items-center">
+                Student
+                <button class="btn btn-sm rounded ms-2" style="background-color: #918072; color: white; ">
+                    <i class="bi bi-arrow-up" style="font-size: 0.8rem;"></i>
+                    <i class="bi bi-arrow-down" style="font-size: 0.8rem;"></i>
+                </button>
+            </div>
+            </th>
+            <th class="fw-bold align-middle">Amount</th>
+            <th class="fw-bold align-middle">
+            <div class="d-flex align-items-center">
+                Due Date
+                <button class="btn btn-sm rounded ms-2" style="background-color: #918072; color: white; ">
+                    <i class="bi bi-arrow-up" style="font-size: 0.8rem;"></i>
+                    <i class="bi bi-arrow-down" style="font-size: 0.8rem;"></i>
+                </button>
+            </div>
+            </th>
+            <th class="fw-bold align-middle">Sessions</th>
+            <th class="fw-bold align-middle">
+            <div class="d-flex align-items-center">
+                Status
+                <button class="btn btn-sm rounded ms-2" style="background-color: #918072; color: white; ">
+                    <i class="bi bi-arrow-up" style="font-size: 0.8rem;"></i>
+                    <i class="bi bi-arrow-down" style="font-size: 0.8rem;"></i>
+                </button>
+            </div>
+            </th>
+            <th class="fw-bold align-middle">Action</th>
+        </tr>
+    </thead>
+
+    <tbody><tr class="border-bottom">
+        <td>
+        <div class="d-flex align-items-center">
+                <div class="profile-img me-3"><img src="{% static 'images/contohstudent.jpg' %}"></div>
+                Siswa 1
+            </div>
+        </td>
+        <td>Rp.XXX</td>
+        <td>MMMM/DD/YYYY</td>
+        <td>X</td>
+        <td>
+            <!--{% if payment.status == 'OVERDUE' %}
+                <span class="status-overdue">OVERDUE</span>
+            {% elif payment.status == 'CONFIRM' %}
+                <span class="status-confirm">CONFIRM</span>
+            {% elif payment.status == 'PENDING' %}
+                <span class="status-pending">PENDING</span>
+            {% elif payment.status == 'PAID' %}
+                <span class="status-paid">PAID</span>
+            {% else %}
+                <span>{{ payment.status }}</span>
+            {% endif %}-->
+            <span class="status-pending">OVERDUE</span>
+        </td>
+        <td>
+            <!--{% if payment.status == 'OVERDUE' or payment.status == 'PENDING' %}
+                <a href="#" class="text-danger me-2" title="Delete">
+                <i class="bi bi-trash"></i>
+                </a>
+            {% endif %}
+
+            {% if payment.status == 'CONFIRM' or payment.status == 'PAID' %}
+                <a href="#" class="text-primary" title="View Image">
+                <i class="bi bi-image"></i>
+                </a>
+            {% endif %}-->
+            <a href="#" class="text-danger" title="Delete"><i class="bi bi-trash-fill"></i></a>
+        </tr>
+    </tbody>
+
+</table>

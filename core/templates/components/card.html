@@ -1,0 +1,8 @@
+{% with bg=bg_color|default:"#ffffff" %}
+<a href="{{link}}" class="btn d-flex flex-column justify-content-center align-items-center text-dark fw-bold shadow mx-2"
+   style="background-color: {{ bg }}; width: 180px; height: 180px; border-radius: 25px; padding: 10px;">
+      <div class="fs-6 text-center">{{ text1 }}</div>
+      <div class="display-6 my-2">{{ amount }}</div>
+      <div class="fs-6 text-muted fw-normal">{{ text2 }}</div>
+</a>
+{% endwith %}

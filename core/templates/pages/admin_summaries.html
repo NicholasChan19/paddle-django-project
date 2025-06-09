@@ -1,0 +1,183 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Admin Summaries{% endblock %}
+
+
+{% block content %}
+
+<style>
+    body {
+    background-color: #eeeee5;
+    }
+    .lesson-card {
+    max-width: 900px;
+    margin: 20px 0px 20px 20 px;
+    border-radius: 15px;
+    }
+    .profile-img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    }
+    .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    }
+    .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .metadata {
+    font-size: 0.9rem;
+    color: #999;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div class="text fs-1 fw-bold">Summaries</div>
+    <button class="rounded-full btn" style="background-color: #918072; color: white;">add session</button>
+</div>
+        
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div class="d-flex gap-3">
+        <!-- start -->
+        <input type="month"
+            name="start_date"
+            class="rounded-xl border px-4 py-2 text-gray-700 placeholder-gray-400"
+            placeholder="Start MM/YYYY">
+
+        <!-- end -->
+        <input type="month"
+            name="end_date"
+            class="rounded-xl border px-4 py-2 text-gray-700 placeholder-gray-400"
+            placeholder="End MM/YYYY">
+    </div>
+        <!-- day search -->
+
+    <div class="d-flex justify-content-end">
+        <input 
+            class="form-control me-2" 
+            type="search" 
+            placeholder="Search student" 
+            aria-label="Search student" 
+
+        >
+        <input 
+            class="form-control" 
+            type="search" 
+            placeholder="Search teacher" 
+            aria-label="Search teacher" 
+        >
+    </div>
+
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <div class="d-flex gap-3">
+        <button class="rounded-full btn mb-4" style="background-color: #918072; color: white;">apply filter</button>
+        <button class="rounded-full btn mb-4" style="background-color: #918072; color: white;"><i class="bi bi-arrow-up"></i><i class="bi bi-arrow-down"></i></button>
+    </div>
+
+    <button class="rounded-full btn mb-4" style="background-color: #918072; color: white;">pending summaries</button>
+</div>
+
+{% for summary in summaries %}
+<div class="card p-4 shadow-sm lesson-card mb-4">
+    <div class="d-flex justify-content-between">
+        <div class="d-flex align-items-center">
+            <div class="profile-img me-3"><img src="{{ summary.student.studentImage.url }}" alt="Lesson Image" class="img-fluid"></div>
+            <div>
+                <div><strong>{{ summary.student.user.name }}</strong></div>
+                <div>{{ summary.session.date|date:"F d Y" }}</div>
+                <div>{{ summary.session.time|time:"H:i" }}</div>
+            </div>
+        </div>
+        <div class="text-end metadata">
+            <div>Made by: {{ summary.teacher.user.name }}</div>
+            <div>{{ summary.dateCreated|date:"F d Y" }}</div>
+            <div>{{ summary.dateCreated|time:"H:i" }}</div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-5">
+            <div class="image-placeholder">
+                {% if summary.summaryImage %}
+                <img src="{{ summary.summaryImage.url }}" alt="Lesson Image" class="img-fluid">
+                {% else %}
+                <p>No image available</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-7">
+            <p><strong>Topic:</strong> {{ summary.course.name }}</p>
+            <p><strong>Lesson:</strong> {{ summary.material.name }}</p> 
+            <p>{{ summary.summary }}</p>
+
+            <p>
+            {% with "123" as stars %} 
+            <!-- ini nanti dijadiin ['1', '2', '3'] -->
+                <p>
+                <strong>Mastery:</strong>
+                {% for star in stars|make_list %}
+                    {% if forloop.counter <= summary.mastery %}
+                        ⭐
+                    {% endif %}
+                {% endfor %}
+                </p>
+            {% endwith %}
+            </p>
+
+            <p>
+            {% with "123" as stars %}
+                <p>
+                <strong>Attitude:</strong>
+                {% for star in stars|make_list %}
+                    {% if forloop.counter <= summary.attitude %}
+                        ⭐
+                    {% endif %}
+                {% endfor %}
+                </p>
+            {% endwith %}
+            </p>
+
+            <p>
+            {% with "123" as stars %}
+                <p>
+                <strong>Improvement:</strong>
+                {% for star in stars|make_list %}
+                    {% if forloop.counter <= summary.improvement %}
+                        ⭐
+                    {% endif %}
+                {% endfor %}
+                </p>
+            {% endwith %}
+            </p>
+
+            {% if summary.next_material %}
+                <p><strong>Next:</strong> {{ summary.next_material.name }}</p>
+            {% else %}
+                <p><strong>Next:</strong> No more materials available</p>
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>No summaries found.</p>
+{% endfor %}
+{% endblock %}

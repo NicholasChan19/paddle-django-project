@@ -1,0 +1,45 @@
+<table class="table table-borderless align-middle overflow-hidden rounded table-hover">
+    <tr class="border-bottom">
+            <th class="fw-bold align-middle">
+            <div class="d-flex align-items-center">
+                Order
+                <button class="btn btn-sm rounded ms-2" style="background-color: #918072; color: white; ">
+                    <i class="bi bi-arrow-up" style="font-size: 0.8rem;"></i>
+                    <i class="bi bi-arrow-down" style="font-size: 0.8rem;"></i>
+                </button>
+            </div>
+            </th>
+            <th class="fw-bold align-middle">Name</th>
+            <th class="fw-bold align-middle">Description</th>
+            <th class="fw-bold align-middle">Link</th>
+            <th class="fw-bold align-middle">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for material in materials %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ material.name }}</td>
+        <td>{{ material.description }}</td>
+        <td>
+            {% if material.link %}
+                <a href="{{ material.link }}" target="_blank">{{ material.link }}</a>
+            {% else %}
+                <em>No link</em>
+            {% endif %}
+        </td>
+        <td>
+            <a href="#">
+                <i class="bi bi-pencil-square me-2 edit-icon"></i>
+            </a>
+            <a href="#">
+                <i class="bi bi-trash-fill text-danger delete-icon"></i>
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5" class="text-center">No materials available.</td>
+    </tr>
+    {% endfor %}
+</table>

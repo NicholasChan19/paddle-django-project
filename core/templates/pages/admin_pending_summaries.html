@@ -1,0 +1,11 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Admin Pending Summaries{% endblock %}
+
+
+{% block content %}
+<a href="#" class="rounded-full btn mb-4" style="background-color: #918072; color: white;"><i class="bi bi-arrow-left"></i> back</a>
+<div class="text fs-1 fw-bold">Pending Summaries</div>
+{%include 'components/summary_pending_table.html'%}
+
+{% endblock %}

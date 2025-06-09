@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+    <div class="login-container">
+        <img src = "{% static 'images/logo paddle.png' %}">
+        <h2>paddle</h2>
+        <form method="post">
+            
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li style="color:red;">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% csrf_token %}
+            <p>
+                <label for="id_email">Email:</label>
+                <input type="text" name="email" id="id_email" required />
+            </p>
+            <p>
+                <label for="id_password">Password:</label>
+                <input type="password" name="password" id="password" required />
+            </p>
+
+            <button type="submit">login</button>
+        </form>
+    </div>
+</body>
+</html>

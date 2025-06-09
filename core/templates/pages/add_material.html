@@ -1,0 +1,11 @@
+{% extends "base/admin_base.html" %}
+
+{% block content %}
+<div class="text fs-1 fw-bold mb-4">Add material to {{course.name}}</div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Save Material</button>
+        <a href="{% url 'course_list' course.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

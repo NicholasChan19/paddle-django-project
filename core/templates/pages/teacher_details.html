@@ -1,0 +1,197 @@
+{% extends "base/admin_base.html" %}
+{%load static%}
+
+{% block title %}Teacher Details{% endblock %}
+
+{% block content %}
+<style>
+    .student-img {
+    width: 250px;
+    height: 250px;
+    background-color: #ddd;
+    border-radius: 50%;
+    overflow: hidden;
+    }
+    .student-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .list-unstyled li {
+        margin-bottom: 10px; 
+    }
+    .profile-img {
+    width: 50px;
+    height: 50px;
+    background-color: #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    }
+    .profile-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .image-placeholder {
+    width: 100%;
+    height: 200px;
+    background-color: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    }
+    .image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    }
+    .metadata {
+    font-size: 0.9rem;
+    color: #999;
+    }
+</style>
+
+<div class="container my-4">
+    
+<!-- back button -->
+<a href="{% url 'admin_teachers' %}" class="btn btn-secondary">← Back to Teachers</a>
+<div class="text-center">
+
+    <div class="student-img mb-3 mx-auto d-flex justify-content-center">
+        <img src="{{ teacher.teacherImage.url }}">
+    </div>
+
+    <h4>{{teacher.user.name}}</h4>
+    <div class="my-3">
+    <a href="#" class="rounded-full btn mb-4 me-3" style="background-color: #918072; color: white;"> View summaries</a>
+    <a href="#" class="rounded-full btn mb-4" style="background-color: #918072; color: white;"> View Certificates</a>
+    </div>
+</div>
+
+<!-- cards -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-5">
+            {%include 'components/progress_bar.html'%}
+        </div>
+        <div class="col-md-7">
+            <div class="d-flex justify-content-center gap-3 mb-5">
+                {% include "components/card.html" with text1="All Time Top 1s" amount=teacher.allTimeTopOne text2="Times" %}
+                {% include "components/card.html" with text1="Summaries Done" amount=teacher.summaryDone text2="Times" %}
+                {% include "components/card.html" with text1="All Time Top 3s" amount=teacher.allTimeTopThree text2="Times" %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- details coloumn -->
+    <div class="col-md-4 mb-4">
+    <div class="card p-3 mb-4 shadow-sm details-card">
+        <h5><strong>Details</strong></h5>
+        <ul class="list-unstyled">
+        <li><i class="bi bi-envelope me-2"></i>Email: {{teacher.user.email}}</li>
+        <li><i class="bi bi-telephone me-2"></i>Phone: {{teacher.user.phone}}</li>
+        <li><i class="bi bi-calendar-check me-2"></i>Join date: {{teacher.user.created_at|date:"F d, Y"}}</li>
+        <li><i class="bi bi-gender-ambiguous me-2"></i>Gender: {{teacher.user.gender}}</li>
+        </ul>
+        <div class="d-flex justify-content-end">
+        <a href="{% url 'edit_teacher' teacher.user.id %}" class="btn btn-sm btn-secondary">Edit </a>
+        </div>
+    </div>
+        <form action="{% url 'delete_teacher' teacher.user.id %}" method="post" 
+                onsubmit="return confirm('Are you sure you want to delete this teacher? This action cannot be undone.')">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete Teacher</button>
+        </form>
+    </div>
+
+    <!-- past summaries -->
+    <div class="col-md-8">
+        <h3><strong>Past Summary</strong></h3>
+        {% for summary in summaries %}
+        <div class="card p-4 shadow-sm lesson-card mb-4">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="profile-img me-3"><img src="{{ summary.student.studentImage.url }}" alt="Lesson Image" class="img-fluid"></div>
+                    <div>
+                        <div><strong>{{ summary.student.user.name }}</strong></div>
+                        <div>{{ summary.session.date|date:"F d Y" }}</div>
+                        <div>{{ summary.session.time|time:"H:i" }}</div>
+                    </div>
+                </div>
+                <div class="text-end metadata">
+                    <div>Made by: {{ summary.teacher.user.name }}</div>
+                    <div>{{ summary.dateCreated|date:"F d Y" }}</div>
+                    <div>{{ summary.dateCreated|time:"H:i" }}</div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-5">
+                    <div class="image-placeholder">
+                        {% if summary.summaryImage %}
+                        <img src="{{ summary.summaryImage.url }}" alt="Lesson Image" class="img-fluid">
+                        {% else %}
+                        <p>No image available</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <p><strong>Topic:</strong> {{ summary.course.name }}</p>
+                    <p><strong>Lesson:</strong> {{ summary.material.name }}</p> 
+                    <p>{{ summary.summary }}</p>
+
+                    <p>
+                    {% with "123" as stars %} 
+                        <strong>Mastery:</strong>
+                        {% for star in stars|make_list %}
+                            {% if forloop.counter <= summary.mastery %}
+                                ⭐
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                    </p>
+
+                    <p>
+                    {% with "123" as stars %}
+                        <strong>Attitude:</strong>
+                        {% for star in stars|make_list %}
+                            {% if forloop.counter <= summary.attitude %}
+                                ⭐
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                    </p>
+
+                    <p>
+                    {% with "123" as stars %}
+                        <strong>Improvement:</strong>
+                        {% for star in stars|make_list %}
+                            {% if forloop.counter <= summary.improvement %}
+                                ⭐
+                            {% endif %}
+                        {% endfor %}
+                    {% endwith %}
+                    </p>
+
+                    {% if summary.next_material %}
+                        <p><strong>Next:</strong> {{ summary.next_material.name }}</p>
+                    {% else %}
+                        <p><strong>Next:</strong> No more materials available</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No summaries found.</p>
+        {% endfor %}
+    </div>
+
+
+</div>
+</div>
+
+
+{% endblock %}

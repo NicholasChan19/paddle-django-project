@@ -1,0 +1,19 @@
+{% extends "base/admin_base.html" %}
+{% block title %}Edit Session{% endblock %}
+
+{% block content %}
+
+<div class="container">
+	<a href="{% url 'admin_sessions' %}" class="btn btn-secondary">Back</a>
+	<div class="text fs-1 fw-bold my-2">Edit Session on {{ session.date|date:"F d, Y" }}</div>
+
+	<div class="col-md-6">
+		<form method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit" class="btn btn-primary">Save Changes</button>
+			<a href="{% url 'admin_sessions' %}" class="btn btn-secondary">Cancel</a>
+		</form>
+	</div>
+</div>
+{% endblock %}

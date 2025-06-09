@@ -1,0 +1,64 @@
+{% extends "base/admin_base.html" %}
+
+{% block title %}Admin Courses{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+{% for message in messages %}
+    <script>
+    alert("{{ message }}");
+    </script>
+{% endfor %}
+{% endif %}
+
+<div class="text fs-1 fw-bold mb-4">Courses</div>
+<div class="row mb-5">
+    {% for course in courses %}
+        {% with bg=bg_color|default:"#ffffff" %}
+        <a href="{% url 'course_list' course.id %}" class="btn d-flex flex-column justify-content-center align-items-center text-dark fw-bold shadow mx-2"
+        style="background-color: {{ bg }}; width: 180px; height: 180px; border-radius: 25px; padding: 10px;">
+            <div class="fs-4 text-center my-2">{{ course.name }}</div>
+        </a>
+        {% endwith %}
+    {% endfor %}
+</div>
+
+<!-- button -->
+<a href="#"
+   data-bs-toggle="modal"  
+   data-bs-target="#createCourseModal"
+   class="btn d-flex flex-column justify-content-center align-items-center text-white fw-bold shadow mx-2"
+   style="background-color: #918072; width: 180px; height: 180px; border-radius: 25px; padding: 10px;">
+   
+   <div class="fs-5 text-center"></div>
+   <div class="display-6 my-2">+</div>
+   <div class="fs-6 fw-normal">add new course</div>
+</a>
+
+<!-- popup -->
+
+<div class="modal fade" id="createCourseModal" >
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal"></button>
+    <h3 class="fw-bold mb-3">ALERT</h3>
+    <p class="mb-3">Please enter the name of the course</p>
+    <form method="post" action="{% url 'create_course' %}">
+        {% csrf_token %}
+        <input name="name" type="text" class="form-control mb-3" placeholder="type here" required>
+        <button type="submit" class="btn btn-success px-4">confirm</button>
+    </form>
+    </div>
+</div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('created') === 'true') {
+        alert("Course has been created successfully!");
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+</script>
+
+{% endblock %}

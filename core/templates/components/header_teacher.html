@@ -1,0 +1,44 @@
+{% load static %}
+{% if request.user.is_authenticated and request.user.role == "teacher" %}
+<header class="d-flex justify-content-end align-items-center p-3 bg-light border-bottom">
+
+<div class="d-flex align-items-center">
+    <div class="me-3">
+    {% if request.user.teacher.badge == "gold" %}
+        <img src="{% static 'images/gold.jpg' %}" alt="Gold Badge" width="30" height="30">
+    {% elif request.user.teacher.badge == "silver" %}
+        <img src="{% static 'images/silver.jpg' %}" alt="Silver Badge" width="30" height="30">
+    {% elif request.user.teacher.badge == "bronze" %}
+        <img src="{% static 'images/bronze.jpg' %}" alt="Bronze Badge" width="30" height="30">
+    {% else %}
+        <img src="{% static 'images/medal.png' %}" alt="Badge" width="30" height="30">
+      {% endif %}
+    </div>
+</div>
+
+
+<div class="d-flex align-items-center">
+    <div class="me-3 position-relative">
+    <img src="{% static 'images/bell.png' %}" alt="Notifications" width="25" height="25">
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        3
+        <span class="visually-hidden">unread messages</span>
+    </span>
+    </div>
+
+    <!-- User Profile -->
+    <div class="d-flex align-items-center">
+      <a href="">
+        {% if request.user.teacher.teacherImageURL %}
+        <img src="{{ request.user.teacher.teacherImageURL }}" alt="Profile" class="rounded-circle" width="32" height="32">
+        {% else %}
+        <img src="{% static 'images/profile picture.png' %}" alt="Default Profile" class="rounded-circle" width="32" height="32">
+        {% endif %}
+      </a>
+      <span class="ms-2 fw-semibold">{{ request.user.name }}</span>
+    </div>
+
+</div>
+
+</header>
+{% endif %}

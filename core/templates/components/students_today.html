@@ -1,0 +1,17 @@
+{%load static%}
+<div class="bg-white w-100 rounded-4 p-4 shadow">
+<h5 class="fw-bold mb-4">Todays' Students</h5>
+
+<!-- list student -->
+<div class="d-flex align-items-center mb-4 ">
+    <img src="{% static 'images/profile picture.png' %}" class="rounded-circle me-3" width="60" height="60" alt="Student photo">
+    <div>
+    <div class="fw-semibold text-dark">{{student_name}}</div>
+    <div class="text-muted small">last material: {{last_material}}</div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="#" class="fw-bold text-dark text-decoration-none">View all</a>
+</div>
+</div>
