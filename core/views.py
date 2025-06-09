@@ -158,7 +158,7 @@ def add_session(request):
 
 def session_details(request, session_id):
     session = get_object_or_404(Session, id=session_id)
-    students = session.summary.all()
+    students = session.summary_set.all()
     return render(request, 'pages/session_details.html', {'session': session, 'students': students})
 
 def edit_session(request, session_id):
