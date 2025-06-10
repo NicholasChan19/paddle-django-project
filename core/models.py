@@ -22,7 +22,7 @@ class User(AbstractUser):
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='male')
     phone = models.CharField(max_length=20)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='student')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='teacher')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
     created_at = models.DateTimeField(auto_now_add=True)
 
